@@ -5,6 +5,10 @@ describe VideosController do
   REQUIRED_VIDEO_FIELDS = [
     "id", "title", "release_date", "available_inventory"].sort
 
+  REQUIRED_VIDEO_FIELDS_SHOW = [
+    "id", "title", "overview", "release_date", "total_inventory", "available_inventory"].sort
+
+    # TODO - should this go in test helper?
   def check_response(expected_type:, expected_status: :success)
     must_respond_with expected_status
     expect(response.header['Content-Type']).must_include 'json'
@@ -60,7 +64,7 @@ describe VideosController do
     it "must get show for a valid video" do
       get video_path(new_video)
       video = check_response(expected_type: Hash)
-      expect(video.keys.sort).must_equal REQUIRED_VIDEO_FIELDS
+      expect(video.keys.sort).must_equal REQUIRED_VIDEO_FIELDS_SHOW
     end
 
     it "must return 404 for an invalid video" do
