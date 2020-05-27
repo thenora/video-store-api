@@ -10,13 +10,12 @@ class VideosController < ApplicationController
     
     if video.nil?
       render json: {
-        ok: false,
-        message: "Video not found"},
+        "errors": ["Not Found"]},
         status: :not_found
         return
     end
 
-    render json: video.as_json(only: [:id, :title, :overview, :release_date, :total_inventory, :available_inventory]), status: :ok
+    render json: video.as_json(only: [:title, :overview, :release_date, :total_inventory, :available_inventory]), status: :ok
   end
 
   def create
