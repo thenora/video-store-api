@@ -2,7 +2,7 @@ require "test_helper"
 
 describe VideosController do
 
-  REQUIRED_VIDEO_FIELDS = [
+  REQUIRED_VIDEO_FIELDS_INDEX = [
     "id", "title", "release_date", "available_inventory"].sort
 
   REQUIRED_VIDEO_FIELDS_SHOW = [
@@ -33,7 +33,7 @@ describe VideosController do
       body = check_response(expected_type: Array)
       body.each do |video|
         expect(video).must_be_instance_of Hash
-        expect(video.keys.sort).must_equal REQUIRED_VIDEO_FIELDS
+        expect(video.keys.sort).must_equal REQUIRED_VIDEO_FIELDS_INDEX
       end
     end
 
@@ -76,13 +76,11 @@ describe VideosController do
   describe "create" do
     let(:video_data) {
       {
-        video: {
-          title: "Star Wars",
-          overview: "Family Space Odyssey",
-          release_date: Date.today,
-          total_inventory: 10,
-          available_inventory: 5
-        }
+        title: "Star Wars",
+        overview: "Family Space Odyssey",
+        release_date: Date.today,
+        total_inventory: 10,
+        available_inventory: 5
       }
     }
     it "can create a new video" do
@@ -95,7 +93,7 @@ describe VideosController do
 
     it "will respond with bad_request for invalid data" do
       # Arrange - using let from above
-      video_data[:video][:title] = nil
+      video_data[:title] = nil
 
       expect {
         # Act
