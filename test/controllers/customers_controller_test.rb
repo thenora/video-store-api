@@ -3,8 +3,7 @@ require "test_helper"
 describe CustomersController do
   REQUIRED_VIDEO_FIELDS = [
     "id", "name", "registered_at",
-    "address", "city", "state",
-    "postal_code", "phone" ].sort
+        "postal_code", "phone", "videos_checked_out_count" ].sort
 
   def check_response(expected_type:, expected_status: :success)
     must_respond_with expected_status
