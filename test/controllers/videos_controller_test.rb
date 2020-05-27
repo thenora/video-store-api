@@ -52,7 +52,7 @@ describe VideosController do
     let(:new_video) {
         Video.create(
           title: "Star Wars",
-          overview: "Family Space Odissey",
+          overview: "Family Space Odyssey",
           release_date: Date.today,
           total_inventory: 10,
           available_inventory: 5
@@ -76,7 +76,7 @@ describe VideosController do
       {
         video: {
           title: "Star Wars",
-          overview: "Family Space Odissey",
+          overview: "Family Space Odyssey",
           release_date: Date.today,
           total_inventory: 10,
           available_inventory: 5
