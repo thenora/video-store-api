@@ -1,7 +1,11 @@
 class VideosController < ApplicationController
   def index
-    videos = Video.order(:title).as_json(only: [:id, :title,
-      :release_date, :available_inventory])
+    videos = Video.order(:title).as_json(only: [
+      :id,
+      :title,
+      :release_date,
+      :available_inventory
+    ])
     render json: videos, status: :ok
   end
 
@@ -12,10 +16,16 @@ class VideosController < ApplicationController
       render json: {
         "errors": ["Not Found"]},
         status: :not_found
-        return
+      return
     end
 
-    render json: video.as_json(only: [:title, :overview, :release_date, :total_inventory, :available_inventory]), status: :ok
+    render json: video.as_json(only: [
+      :title,
+      :overview,
+      :release_date,
+      :total_inventory,
+      :available_inventory
+    ]), status: :ok
   end
 
   def create
@@ -25,8 +35,8 @@ class VideosController < ApplicationController
       return
     else
       render json: {
-          errors: video.errors.messages
-        }, status: :bad_request
+        errors: video.errors.messages
+      }, status: :bad_request
       return
     end
   end
@@ -34,7 +44,13 @@ class VideosController < ApplicationController
   private
   
   def video_params
-    params.permit(:title, :overview, :release_date, :total_inventory, :available_inventory)
+    params.permit(
+      :title,
+      :overview,
+      :release_date,
+      :total_inventory,
+      :available_inventory
+    )
   end
 end
 
