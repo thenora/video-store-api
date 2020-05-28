@@ -1,9 +1,14 @@
 require "test_helper"
 
 describe CustomersController do
-  REQUIRED_VIDEO_FIELDS = [
-    "id", "name", "registered_at",
-        "postal_code", "phone", "videos_checked_out_count" ].sort
+  REQUIRED_CUSTOMER_FIELDS = [
+    "id",
+    "name",
+    "registered_at",
+    "postal_code",
+    "phone",
+    "videos_checked_out_count"
+  ].sort
 
   describe "index" do
     it "must get index" do
@@ -19,7 +24,7 @@ describe CustomersController do
       body = check_response(expected_type: Array)
       body.each do |customer|
         expect(customer).must_be_instance_of Hash
-        expect(customer.keys.sort).must_equal REQUIRED_VIDEO_FIELDS
+        expect(customer.keys.sort).must_equal REQUIRED_CUSTOMER_FIELDS
       end
     end
 
