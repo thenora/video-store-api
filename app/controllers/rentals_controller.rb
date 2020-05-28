@@ -5,7 +5,7 @@ class RentalsController < ApplicationController
     
     if video.nil?
       render json: {
-        "errors": ["Video Not Found"]},
+        errors: ["Video Not Found"]},
         status: :not_found
       return
     end
@@ -14,7 +14,7 @@ class RentalsController < ApplicationController
     
     if customer.nil?
       render json: {
-        "errors": ["Customer Not Found"]},
+        errors: ["Customer Not Found"]},
         status: :not_found
       return
     end
@@ -23,14 +23,14 @@ class RentalsController < ApplicationController
     
     if rental.nil?
       render json: {
-        "errors": ["Rental Not Found"]},
+        errors: ["Rental Not Found"]},
         status: :not_found
       return
     end
 
     if !rental.checkedin?
       render json: {
-        "errors": ["Rental Already Checked-In"]},
+        errors: ["Rental Already Checked-In"]},
         status: :bad_request
       return
     end
