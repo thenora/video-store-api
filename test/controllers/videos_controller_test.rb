@@ -6,7 +6,7 @@ describe VideosController do
     "id", "title", "release_date", "available_inventory"].sort
 
   REQUIRED_VIDEO_FIELDS_SHOW = [
-    "id", "title", "overview", "release_date", "total_inventory", "available_inventory"].sort
+    "title", "overview", "release_date", "total_inventory", "available_inventory"].sort
 
     # TODO - should this go in test helper?
   def check_response(expected_type:, expected_status: :success)
