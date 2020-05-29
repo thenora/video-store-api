@@ -13,8 +13,8 @@ class RentalsController < ApplicationController
       rental.checkout_date = Date.today
       rental.due_date = Date.today + 7
       if rental.save
-        customer.take_movie_home
-        video.send_movie_out
+        customer.update_checkout(1)
+        video.update_inventory(-1)
         rental_data = {
           customer_id: rental.customer_id,
           video_id: rental.video_id,
