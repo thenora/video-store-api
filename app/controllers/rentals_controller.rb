@@ -23,13 +23,9 @@ class RentalsController < ApplicationController
           videos_checked_out_count: customer.videos_checked_out_count
         }
 
-        render json: rental_data.as_json, status: :ok
+        render json: rental_data.as_json, status: :created
         return
       else
-        print "debug ---------> "
-        p rental  
-        print "debug ---------> "
-        p rental.errors
         render json: {
           errors: ["Not Found"]},
           status: :not_found
@@ -80,7 +76,7 @@ class RentalsController < ApplicationController
 
     rental.checkin(Date.today)
     rental.customer.update_checkout(-1)
-    rental.video.update_inventory(+1)
+    rental.video.update_inventory(1)
 
     rental_data = {
       customer_id: rental.customer_id,

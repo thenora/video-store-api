@@ -14,7 +14,7 @@ class Video < ApplicationRecord
   end
 
   def update_inventory(count)
-    available_inventory += count
+    self.available_inventory += count
     self.save
   end
 

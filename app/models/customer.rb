@@ -9,7 +9,7 @@ class Customer < ApplicationRecord
   end
 
   def update_checkout(count)
-    videos_checked_out_count += count
+    self.videos_checked_out_count += count
     self.save
   end
 
