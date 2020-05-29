@@ -8,6 +8,11 @@ class Video < ApplicationRecord
   validates :total_inventory, presence: true
   validates :available_inventory, presence: true
 
+  def send_movie_out
+    self.available_inventory -= 1
+		self.save
+  end
+
   def update_inventory(count)
     available_inventory += count
     self.save
