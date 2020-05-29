@@ -8,5 +8,4 @@ class Customer < ApplicationRecord
     self.videos_checked_out_count += count
     self.save
   end
-
 end

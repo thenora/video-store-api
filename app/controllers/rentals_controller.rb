@@ -10,8 +10,7 @@ class RentalsController < ApplicationController
         customer_id: customer.id,
         video_id: video.id
       )
-      rental.checkout_date = Date.today
-      rental.due_date = Date.today + 7
+      rental.checkout_update(Date.today)
       if rental.save
         customer.update_checkout(1)
         video.update_inventory(-1)
@@ -74,7 +73,7 @@ class RentalsController < ApplicationController
       return
     end
 
-    rental.checkin(Date.today)
+    rental.checkin_update(Date.today)
     rental.customer.update_checkout(-1)
     rental.video.update_inventory(1)
 
@@ -86,7 +85,6 @@ class RentalsController < ApplicationController
     }
 
     render json: rental_data.as_json, status: :ok
-
   end 
 
 end
