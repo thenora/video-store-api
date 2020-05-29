@@ -95,33 +95,40 @@ describe RentalsController do
 
   end
 
-  describe "checkin" do ### underconstrucion
-    it "checks in a valid rental" do
+  describe "checkin" do
+    it "checkin a valid rental" do
       # Arrange
-
+      post checkout_path, params: rental_data 
+      new_rental = Rental.last
 
       # Act
-      expect {
-        post checkin_path, params: checkin_data
-      }.must_differ "Video.count", 1
-  
-      check_response(expected_type: Hash, expected_status: :created)
+      post checkin_path, params: rental_data
   
       # Assert
-
+      check_response(expected_type: Hash, expected_status: :ok)
     end
 
-    it "rejects an invalid rental" do
+    it "rejects an invalid rental - bad customer" do
       # Arrange
-
+      rental_data[:customer_id] = -1
 
       # Act
-
-
+      post checkin_path, params: rental_data
+  
       # Assert
-
+      check_response(expected_type: Hash, expected_status: :not_found)
     end
 
+    it "rejects an invalid rental - bad video" do
+      # Arrange
+      rental_data[:videos_id] = -1
+      
+      # Act
+      post checkin_path, params: rental_data
+  
+      # Assert
+      check_response(expected_type: Hash, expected_status: :not_found)
+    end
 
   end
 

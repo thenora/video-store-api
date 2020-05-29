@@ -6,21 +6,15 @@ class RentalsController < ApplicationController
 
     if video != nil && customer != nil
 
-      @rental = Rental.new(
+      rental = Rental.new(
         customer_id: customer.id,
         videos_id: video.id
       )
-      @rental.checkout_date = Date.today
-      @rental.due_date = Date.today + 7
-      
-      p video
-      p customer
-      p @rental
-
-      if @rental.save
+      rental.checkout_date = Date.today
+      rental.due_date = Date.today + 7
+      if rental.save
         customer.take_movie_home
         video.send_movie_out
-        p @rental
         rental_data = {
           customer_id: rental.customer_id,
           videos_id: rental.videos_id,
@@ -32,6 +26,10 @@ class RentalsController < ApplicationController
         render json: rental_data.as_json, status: :ok
         return
       else
+        print "debug ---------> "
+        p rental  
+        print "debug ---------> "
+        p rental.errors
         render json: {
           errors: ["Not Found"]},
           status: :not_found
@@ -84,12 +82,14 @@ class RentalsController < ApplicationController
     rental.customer.update_checkout(-1)
     rental.video.update_inventory(+1)
 
-    render json: {
+    rental_data = {
       customer_id: rental.customer_id,
       videos_id: rental.videos_id,
       videos_checked_out_count: rental.customer.videos_checked_out_count,
       available_inventory: rental.video.available_inventory
     }
+
+    render json: rental_data.as_json, status: :ok
 
   end 
 
