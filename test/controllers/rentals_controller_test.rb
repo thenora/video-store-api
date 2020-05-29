@@ -2,13 +2,7 @@ require "test_helper"
 
 describe RentalsController do
   let(:new_video) {
-    Video.create(
-      title: "Star Wars",
-      overview: "Family Space Odyssey",
-      release_date: Date.today,
-      total_inventory: 10,
-      available_inventory: 5
-    )
+    videos(:video1)
   }
 
   let(:customer1) { customers(:customer1) }
@@ -30,10 +24,10 @@ describe RentalsController do
 
     it "creates a rental" do
       expect { 
-        post checkout_path, params: rental_data 
+        post check_out_path, params: rental_data 
       }.must_differ "Rental.count", 1
 
-      check_response(expected_type: Hash, expected_status: :created)
+      check_response(expected_type: Hash)
     end
 
     it "gives a bad request response for invalid customer id" do
@@ -42,7 +36,7 @@ describe RentalsController do
 
       expect {
         # Act
-        post checkout_path, params: rental_data
+        post check_out_path, params: rental_data
 
       # Assert
       }.wont_change "Video.count"
@@ -57,7 +51,7 @@ describe RentalsController do
 
       expect {
         # Act
-        post checkout_path, params: rental_data
+        post check_out_path, params: rental_data
 
       # Assert
       }.wont_change "Video.count"
@@ -89,7 +83,7 @@ describe RentalsController do
     end
 
     it "adds a due date 7 days after the checkout" do
-      post checkout_path, params: rental_data
+      post check_out_path, params: rental_data
       
       expect(Rental.last.due_date).must_equal Date.today + 7
     end
@@ -103,7 +97,7 @@ describe RentalsController do
 
       # Act
       expect {
-        post checkin_path, params: checkin_data
+        post check_in_path, params: check_in_data
       }.must_differ "Video.count", 1
   
       check_response(expected_type: Hash, expected_status: :created)
