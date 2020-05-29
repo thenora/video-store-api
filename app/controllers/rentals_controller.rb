@@ -1,7 +1,42 @@
 class RentalsController < ApplicationController
 
   def checkout
-  
+    video = Video.find_by(id: params[:video_id])
+    customer = Customer.find_by(id: params[:customer_id])
+
+    @rental = Rental.new(
+      customer_id: customer.id,
+      video_id: video.id )
+
+    @rental.due_date = Date.today + 7 
+
+    if video != nil && customer != nil
+      if @rental.save
+        customer.take_movie_home
+        video.send_movie_out
+
+        rental_data = {
+          customer_id: rental.customer_id,
+          video_id: rental.video_id,
+          due_date: rental.due_date,
+          available_inventory: video.send_movie_out,
+          videos_checked_out_count: customer.take_movie_home
+        }
+
+        render json: rental_data.as_json, status: :ok
+        return
+      else
+        render json: {
+          errors: ["Not Found"]},
+          status: :not_found
+        return
+      end
+    else
+      render json: {
+        errors: ["Not Found"]},
+        status: :not_found
+      return
+    end
   end
 
 
