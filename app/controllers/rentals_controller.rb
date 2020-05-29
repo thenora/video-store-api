@@ -1,14 +1,14 @@
 class RentalsController < ApplicationController
 
   def checkout
-    video = Video.find_by(id: params[:videos_id])
+    video = Video.find_by(id: params[:video_id])
     customer = Customer.find_by(id: params[:customer_id])
 
     if video != nil && customer != nil
 
       rental = Rental.new(
         customer_id: customer.id,
-        videos_id: video.id
+        video_id: video.id
       )
       rental.checkout_date = Date.today
       rental.due_date = Date.today + 7
@@ -17,7 +17,7 @@ class RentalsController < ApplicationController
         video.send_movie_out
         rental_data = {
           customer_id: rental.customer_id,
-          videos_id: rental.videos_id,
+          video_id: rental.video_id,
           due_date: rental.due_date,
           available_inventory: video.available_inventory,
           videos_checked_out_count: customer.videos_checked_out_count
@@ -44,7 +44,7 @@ class RentalsController < ApplicationController
   end
 
   def checkin
-    video = Video.find_by(id: params[:videos_id])
+    video = Video.find_by(id: params[:video_id])
     
     if video.nil?
       render json: {
@@ -62,7 +62,7 @@ class RentalsController < ApplicationController
       return
     end
 
-    rental = Rental.find_by(customer_id: params[:customer_id], videos_id: params[:videos_id])
+    rental = Rental.find_by(customer_id: params[:customer_id], video_id: params[:video_id])
     
     if rental.nil?
       render json: {
@@ -84,7 +84,7 @@ class RentalsController < ApplicationController
 
     rental_data = {
       customer_id: rental.customer_id,
-      videos_id: rental.videos_id,
+      video_id: rental.video_id,
       videos_checked_out_count: rental.customer.videos_checked_out_count,
       available_inventory: rental.video.available_inventory
     }

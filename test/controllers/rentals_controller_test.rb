@@ -16,7 +16,7 @@ describe RentalsController do
   let(:rental_data) {
     {
       customer_id: customer1.id, 
-      videos_id: new_video.id
+      video_id: new_video.id
     }
   }
 
@@ -121,7 +121,7 @@ describe RentalsController do
 
     it "rejects an invalid rental - bad video" do
       # Arrange
-      rental_data[:videos_id] = -1
+      rental_data[:video_id] = -1
       
       # Act
       post checkin_path, params: rental_data
