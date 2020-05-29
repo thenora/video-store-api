@@ -9,6 +9,7 @@ describe VideosController do
     "title", "overview", "release_date", "total_inventory", "available_inventory"].sort
 
   describe "index" do
+
     it "must get index" do
       get videos_path
       check_response(expected_type: Array)
@@ -37,9 +38,11 @@ describe VideosController do
       body = check_response(expected_type: Array)
       expect(body).must_equal []
     end
+
   end
 
   describe "show" do
+
     let(:new_video) {
         Video.create(
           title: "Star Wars",
@@ -60,9 +63,11 @@ describe VideosController do
       get video_path(-1)
       video = check_response(expected_type: Hash, expected_status: :not_found)
     end
+
   end
 
   describe "create" do
+
     let(:video_data) {
       {
         title: "Star Wars",
@@ -72,6 +77,7 @@ describe VideosController do
         available_inventory: 5
       }
     }
+
     it "can create a new video" do
       expect {
         post videos_path, params: video_data
@@ -94,6 +100,7 @@ describe VideosController do
       body = check_response(expected_type: Hash, expected_status: :bad_request)
       expect(body["errors"].keys).must_include "title"
     end
+    
   end
   
 end

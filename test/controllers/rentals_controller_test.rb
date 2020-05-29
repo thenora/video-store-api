@@ -93,6 +93,7 @@ describe RentalsController do
   end
 
   describe "checkin" do
+    
     it "checkin a valid rental" do
       # Arrange
       post checkout_path, params: rental_data 
