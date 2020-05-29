@@ -5,7 +5,6 @@ class RentalsController < ApplicationController
     customer = Customer.find_by(id: params[:customer_id])
 
     if video != nil && customer != nil
-
       rental = Rental.new(
         customer_id: customer.id,
         video_id: video.id

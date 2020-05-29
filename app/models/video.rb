@@ -12,5 +12,4 @@ class Video < ApplicationRecord
     self.available_inventory += count
     self.save
   end
-
 end
