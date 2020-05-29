@@ -23,7 +23,7 @@ class RentalsController < ApplicationController
           videos_checked_out_count: customer.videos_checked_out_count
         }
 
-        render json: rental_data.as_json, status: :created
+        render json: rental_data.as_json, status: :ok
         return
       else
         render json: {
@@ -44,7 +44,7 @@ class RentalsController < ApplicationController
     
     if video.nil?
       render json: {
-        errors: ["Video Not Found"]},
+        errors: ["Not Found"]},
         status: :not_found
       return
     end
@@ -53,7 +53,7 @@ class RentalsController < ApplicationController
     
     if customer.nil?
       render json: {
-        errors: ["Customer Not Found"]},
+        errors: ["Not Found"]},
         status: :not_found
       return
     end

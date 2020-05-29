@@ -27,7 +27,7 @@ describe RentalsController do
         post checkout_path, params: rental_data 
       }.must_differ "Rental.count", 1
 
-      check_response(expected_type: Hash, expected_status: :created)
+      check_response(expected_type: Hash, expected_status: :ok)
     end
 
     it "fails if given an invalid customer id" do
