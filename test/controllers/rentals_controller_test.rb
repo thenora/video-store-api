@@ -16,17 +16,16 @@ describe RentalsController do
   let(:rental_data) {
     {
       customer_id: customer1.id, 
-      video_id: new_video.id
+      videos_id: new_video.id
     }
   }
 
-
   describe "checkout" do
-    before do
-      rental_data = {
-        customer_id: customer1.id, video_id: new_video.id
-      }
-    end
+    # before do
+    #   rental_data = {
+    #     customer_id: customer1.id, video_id: new_video.id
+    #   }
+    # end
 
     it "creates a rental" do
       expect { 
@@ -67,15 +66,15 @@ describe RentalsController do
     end
 
     it "has a checkout date" do
-      post check_out_path, params: rental_data
+      post checkout_path, params: rental_data
       
-      expect(Rental.last.check_out_date).must_equal Date.today
+      expect(Rental.last.checkout_date).must_equal Date.today
     end
 
     it "increases customer's videos_checked_out_count by 1" do
       expect(customer1.videos_checked_out_count).must_equal 0
       
-      post check_out_path, params: @rental_hash
+      post checkout_path, params: rental_data
       
       expect(customer1.videos_checked_out_count).must_equal 1
     end
@@ -83,7 +82,7 @@ describe RentalsController do
     it "decreases the video's available inventory by one" do
       expect(new_video.available_inventory).must_equal 5
       
-      expect{post check_out_path, params: rental_data}.must_differ "new_video.available_inventory", -1
+      expect{post checkout_path, params: rental_data}.must_differ "new_video.available_inventory", -1
       
       expect(new_video.available_inventory).must_equal 4
     end
