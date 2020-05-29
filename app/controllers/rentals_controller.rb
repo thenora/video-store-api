@@ -44,7 +44,7 @@ class RentalsController < ApplicationController
     
     if video.nil?
       render json: {
-        errors: ["Video Not Found"]},
+        errors: ["Not Found"]},
         status: :not_found
       return
     end
@@ -53,7 +53,7 @@ class RentalsController < ApplicationController
     
     if customer.nil?
       render json: {
-        errors: ["Customer Not Found"]},
+        errors: ["Not Found"]},
         status: :not_found
       return
     end
@@ -62,7 +62,7 @@ class RentalsController < ApplicationController
     
     if rental.nil?
       render json: {
-        errors: ["Rental Not Found"]},
+        errors: ["Not Found"]},
         status: :not_found
       return
     end
